@@ -1,0 +1,24 @@
+name: Fahim's MD Template
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+
+jobs:
+  update_templates:
+    name: "Update Readme"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Fetching repo contents"
+        uses: actions/checkout@main
+
+      - name: Update Readme.md with file links
+        run: |
+          bash ./.github/workflows/worker.sh
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git commit -am "gh-actions-update"
+          git push
